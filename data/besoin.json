@@ -1,0 +1,12 @@
+{
+    "id_mission": "B2B-MRS-001",
+    "ville_cible": "Marseille",
+    "competence_requise": "electrique",
+    "experience_min": 3,
+    "type_mission": "B2B",
+    "urgence": "haute",
+    "description": "Mission de maintenance flotte VUL pour client entreprise",
+    "poids_ville": 50,
+    "poids_competence": 30,
+    "poids_experience": 20
+}

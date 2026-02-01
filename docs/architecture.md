@@ -44,3 +44,36 @@ ville : Zone d'intervention
 skills : Liste de compétences techniques (Freinage, Elec, etc.)
 
 seniority : Nombre d'années d'expérience
+
+## 5. Arborescence du Projet
+
+```
+aag-gomecano-cv-matching/
+├── data/
+│   ├── samples_cvs/        # CV PDF de test
+│   ├── samples_json/       # Profils extraits (sortie)
+│   └── besoin.json         # Définition d'un besoin opérationnel
+├── docs/
+│   ├── architecture.md     # Ce fichier
+│   ├── demo_pitch_comex.md # Script de présentation
+│   └── scoring_rules.md    # Règles de scoring
+├── scripts/
+│   ├── run_ingestion.py    # Point d'entrée extraction
+│   └── run_demo.py         # Lancement démo
+├── src/
+│   ├── aag/
+│   │   ├── ingestion/      # Lecture PDF + nettoyage
+│   │   ├── models/         # Structures de données
+│   │   ├── scoring/        # Logique de matching
+│   │   └── utils/          # Helpers (IO, logs)
+│   └── app_streamlit.py    # Interface web
+└── tests/                  # Tests unitaires
+```
+
+## 6. Check-list de Validation - Jour 1
+
+- [x] Arborescence complète créée
+- [x] 3 CV PDF de test dans `data/samples_cvs/`
+- [x] Script `run_ingestion.py` fonctionnel
+- [x] Fichier `architecture.md` documenté
+- [ ] Premier commit Git effectué
