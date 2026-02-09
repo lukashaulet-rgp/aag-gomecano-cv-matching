@@ -5,6 +5,7 @@ Transforme le texte brut des CV en données structurées.
 import re
 from .pdf_reader import read_pdf
 from .text_cleaner import clean_text
+from aag.utils.logger import logger
 
 
 # =============================================================================
@@ -151,17 +152,13 @@ def run_extraction_pipeline(pdf_path):
     raw_text = read_pdf(pdf_path)
 
     if not raw_text:
-        print(f"Erreur de lecture pour : {pdf_path}")
+        logger.error(f"Impossible de lire {pdf_path}")
         return None
 
     # 2. Extraction des données
     profile = extract_profile_data(raw_text)
 
     if profile:
-        print(f"Extraction réussie pour : {pdf_path}")
-        print(f"  -> Nom: {profile['nom']}")
-        print(f"  -> Ville: {profile['ville']}")
-        print(f"  -> Compétences: {profile['competences']}")
-        print(f"  -> Expérience: {profile['experience_annees']} ans")
+        logger.info(f"Profil extrait : {profile['nom']} | {profile['ville']} | {profile['experience_annees']} ans | {profile['competences']}")
 
     return profile

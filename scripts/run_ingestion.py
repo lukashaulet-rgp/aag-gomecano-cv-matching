@@ -10,6 +10,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../s
 
 from aag.ingestion.extractor import run_extraction_pipeline
 from aag.utils.io import save_json
+from aag.utils.logger import logger
 
 
 def main():
