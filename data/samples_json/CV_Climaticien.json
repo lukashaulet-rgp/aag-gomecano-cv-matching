@@ -1,0 +1,12 @@
+{
+    "nom": "Olivier Petit",
+    "ville": "Marseille",
+    "competences": [
+        "moteur",
+        "freinage",
+        "climatisation"
+    ],
+    "experience_annees": 7,
+    "texte_source": "olivier petit climaticien automobile marseille | 06 89 01 23 45 | olivier.petit@climauto.fr profil professionnel technicien specialise en climatisation automobile avec 7 ans d'experience. competences complementaires en mecanique moteur et systemes de freinage. certifie manipulation fluides frigorigenes.",
+    "fichier_source": "CV_Climaticien.pdf"
+}

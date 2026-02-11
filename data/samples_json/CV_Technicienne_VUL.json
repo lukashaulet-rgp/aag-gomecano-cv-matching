@@ -1,0 +1,12 @@
+{
+    "nom": "Sophie Martin",
+    "ville": "Marseille",
+    "competences": [
+        "electrique",
+        "climatisation",
+        "vul"
+    ],
+    "experience_annees": 8,
+    "texte_source": "sophie martin technicienne vehicules utilitaires legers marseille | 06 12 34 56 78 | sophie.martin@mecapro.fr profil professionnel technicienne specialisee dans les vehicules utilitaires legers avec 8 ans d'experience. competences en systemes electriques, climatisation automobile et maintenance preventive vul. habituee aux flottes professionnelles et interventions sur site client.",
+    "fichier_source": "CV_Technicienne_VUL.pdf"
+}

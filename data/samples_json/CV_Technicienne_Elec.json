@@ -1,0 +1,12 @@
+{
+    "nom": "Clara Moretti",
+    "ville": "Marseille",
+    "competences": [
+        "electrique",
+        "vul",
+        "climatisation"
+    ],
+    "experience_annees": 5,
+    "texte_source": "clara moretti technicienne electricite automobile marseille | 06 12 45 78 90 | clara.moretti@electechauto.fr profil professionnel technicienne en electricite automobile avec 5 ans d'experience. specialisee en diagnostic electronique, vehicules utilitaires legers et climatisation. experience en centre auto multimarque.",
+    "fichier_source": "CV_Technicienne_Elec.pdf"
+}
