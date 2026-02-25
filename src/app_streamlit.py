@@ -16,27 +16,6 @@ from aag.utils.io import load_json
 
 
 # =============================================================================
-# COULEURS
-# =============================================================================
-C = {
-    "primary": "#4F46E5",       # Indigo
-    "primary_light": "#818CF8",
-    "primary_bg": "#EEF2FF",
-    "success": "#059669",       # Vert emeraude
-    "success_bg": "#ECFDF5",
-    "warning": "#D97706",       # Ambre
-    "warning_bg": "#FFFBEB",
-    "danger": "#DC2626",        # Rouge
-    "danger_bg": "#FEF2F2",
-    "text": "#111827",          # Quasi-noir
-    "text_secondary": "#6B7280",# Gris
-    "border": "#E5E7EB",
-    "bg_card": "#FFFFFF",
-    "bg_page": "#F9FAFB",
-}
-
-
-# =============================================================================
 # CONFIGURATION PAGE
 # =============================================================================
 st.set_page_config(
@@ -48,7 +27,147 @@ st.set_page_config(
 
 
 # =============================================================================
-# CSS
+# THEME : LIGHT / DARK
+# =============================================================================
+LIGHT = {
+    "primary": "#4F46E5",
+    "primary_light": "#818CF8",
+    "primary_bg": "#EEF2FF",
+    "success": "#059669",
+    "success_bg": "#ECFDF5",
+    "warning": "#D97706",
+    "warning_bg": "#FFFBEB",
+    "danger": "#DC2626",
+    "danger_bg": "#FEF2F2",
+    "text": "#111827",
+    "text_secondary": "#6B7280",
+    "border": "#E5E7EB",
+    "bg_card": "#FFFFFF",
+    "bg_page": "#F9FAFB",
+    "bg_sidebar": "#FFFFFF",
+    "chart_bg": "#FFFFFF",
+    "chart_grid": "#E5E7EB",
+    "hover_bg": "#fff",
+    "reco_border": "#A7F3D0",
+    "input_bg": "#FFFFFF",
+}
+
+DARK = {
+    "primary": "#818CF8",
+    "primary_light": "#A5B4FC",
+    "primary_bg": "rgba(99,102,241,0.15)",
+    "success": "#34D399",
+    "success_bg": "rgba(52,211,153,0.12)",
+    "warning": "#FBBF24",
+    "warning_bg": "rgba(251,191,36,0.12)",
+    "danger": "#F87171",
+    "danger_bg": "rgba(248,113,113,0.12)",
+    "text": "#F3F4F6",
+    "text_secondary": "#9CA3AF",
+    "border": "#374151",
+    "bg_card": "#1F2937",
+    "bg_page": "#111827",
+    "bg_sidebar": "#1F2937",
+    "chart_bg": "#1F2937",
+    "chart_grid": "#374151",
+    "hover_bg": "#1F2937",
+    "reco_border": "rgba(52,211,153,0.3)",
+    "input_bg": "#374151",
+}
+
+
+# =============================================================================
+# CHARGEMENT DES DONNEES
+# =============================================================================
+@st.cache_data
+def load_profiles(json_dir="data/samples_json/"):
+    profils = []
+    if not os.path.exists(json_dir):
+        return profils
+    for filename in os.listdir(json_dir):
+        if filename.endswith(".json"):
+            filepath = os.path.join(json_dir, filename)
+            profil = load_json(filepath)
+            profil["fichier_source"] = filename
+            profils.append(profil)
+    return profils
+
+
+def load_besoin(path="data/besoin.json"):
+    if os.path.exists(path):
+        return load_json(path)
+    return {
+        "id_mission": "B2B-001",
+        "ville_cible": "Marseille",
+        "competence_requise": "electrique",
+        "experience_min": 3,
+        "poids_ville": 50,
+        "poids_competence": 30,
+        "poids_experience": 20
+    }
+
+
+# =============================================================================
+# SIDEBAR
+# =============================================================================
+dark_mode = st.sidebar.toggle("Mode sombre", value=False)
+C = DARK if dark_mode else LIGHT
+
+st.sidebar.markdown(f"""
+<div style="text-align:center; padding: 0.8rem 0;">
+    <div style="font-size: 1.6rem;">&#9881;</div>
+    <div style="font-size: 1rem; font-weight: 800; color: {C['primary']}; letter-spacing: 1px;">GOMECANO</div>
+    <div style="font-size: 0.65rem; color: {C['text_secondary']}; letter-spacing: 2px; text-transform: uppercase;">Matching Engine</div>
+</div>
+""", unsafe_allow_html=True)
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("##### Configuration Mission")
+
+besoin_defaut = load_besoin()
+
+id_mission = st.sidebar.text_input("ID Mission", value=besoin_defaut.get("id_mission", "B2B-001"))
+
+ville_cible = st.sidebar.selectbox(
+    "Ville cible",
+    ["Marseille", "Lyon", "Toulouse", "Aix-En-Provence", "Aubagne", "Vitrolles", "Toulon", "Nice", "Paris", "Bordeaux"],
+    index=0
+)
+
+competence_requise = st.sidebar.selectbox(
+    "Competence requise",
+    ["electrique", "moteur", "freinage", "pneus", "climatisation", "carrosserie", "vul"],
+    index=0
+)
+
+experience_min = st.sidebar.slider("Experience minimum (annees)", 0, 20, besoin_defaut.get("experience_min", 3))
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("##### Poids des criteres")
+
+poids_ville = st.sidebar.slider("Poids Ville", 0, 100, besoin_defaut.get("poids_ville", 50))
+poids_competence = st.sidebar.slider("Poids Competence", 0, 100, besoin_defaut.get("poids_competence", 30))
+poids_experience = st.sidebar.slider("Poids Experience", 0, 100, besoin_defaut.get("poids_experience", 20))
+
+total_poids = poids_ville + poids_competence + poids_experience
+if total_poids != 100:
+    st.sidebar.warning(f"Total des poids : {total_poids}/100")
+else:
+    st.sidebar.success(f"Total des poids : 100/100")
+
+besoin = {
+    "id_mission": id_mission,
+    "ville_cible": ville_cible,
+    "competence_requise": competence_requise,
+    "experience_min": experience_min,
+    "poids_ville": poids_ville,
+    "poids_competence": poids_competence,
+    "poids_experience": poids_experience
+}
+
+
+# =============================================================================
+# CSS (dynamique selon le theme)
 # =============================================================================
 st.markdown(f"""
 <style>
@@ -56,7 +175,7 @@ st.markdown(f"""
 
     html, body,
     p, h1, h2, h3, h4, h5, h6,
-    span, div, label, input, button, select, textarea,
+    label, input, button, select, textarea,
     .stMarkdown, .stText, .stCaption {{
         font-family: 'Inter', -apple-system, sans-serif;
     }}
@@ -66,25 +185,31 @@ st.markdown(f"""
         max-width: 1100px;
     }}
 
+    /* ---- Page background ---- */
+    .stApp {{
+        background-color: {C["bg_page"]};
+    }}
+
     /* ---- Sidebar ---- */
     section[data-testid="stSidebar"] {{
-        background: {C["bg_card"]};
+        background: {C["bg_sidebar"]};
         border-right: 1px solid {C["border"]};
-    }}
-    section[data-testid="stSidebar"] input,
-    section[data-testid="stSidebar"] [data-baseweb="select"] {{
-        border: 1px solid {C["border"]} !important;
-        border-radius: 8px !important;
     }}
     section[data-testid="stSidebar"] [data-baseweb="select"] > div {{
         border: 1px solid {C["border"]} !important;
         border-radius: 8px !important;
-        background: {C["bg_card"]} !important;
+        background: {C["input_bg"]} !important;
+    }}
+    section[data-testid="stSidebar"] input[type="text"] {{
+        border: 1px solid {C["border"]} !important;
+        border-radius: 8px !important;
+        background: {C["input_bg"]} !important;
+        color: {C["text"]} !important;
     }}
 
     /* ---- Hero ---- */
     .hero {{
-        background: linear-gradient(135deg, {C["primary"]} 0%, #7C3AED 100%);
+        background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
         border-radius: 12px;
         padding: 2rem;
         margin-bottom: 1.5rem;
@@ -205,7 +330,7 @@ st.markdown(f"""
     /* ---- Reco ---- */
     .reco {{
         background: {C["success_bg"]};
-        border: 1px solid #A7F3D0;
+        border: 1px solid {C["reco_border"]};
         border-radius: 10px;
         padding: 1.2rem 1.4rem;
         margin: 0.8rem 0 1.2rem 0;
@@ -245,93 +370,6 @@ st.markdown(f"""
     #MainMenu {{visibility: hidden;}}
 </style>
 """, unsafe_allow_html=True)
-
-
-# =============================================================================
-# CHARGEMENT DES DONNEES
-# =============================================================================
-@st.cache_data
-def load_profiles(json_dir="data/samples_json/"):
-    profils = []
-    if not os.path.exists(json_dir):
-        return profils
-    for filename in os.listdir(json_dir):
-        if filename.endswith(".json"):
-            filepath = os.path.join(json_dir, filename)
-            profil = load_json(filepath)
-            profil["fichier_source"] = filename
-            profils.append(profil)
-    return profils
-
-
-def load_besoin(path="data/besoin.json"):
-    if os.path.exists(path):
-        return load_json(path)
-    return {
-        "id_mission": "B2B-001",
-        "ville_cible": "Marseille",
-        "competence_requise": "electrique",
-        "experience_min": 3,
-        "poids_ville": 50,
-        "poids_competence": 30,
-        "poids_experience": 20
-    }
-
-
-# =============================================================================
-# SIDEBAR
-# =============================================================================
-st.sidebar.markdown(f"""
-<div style="text-align:center; padding: 0.8rem 0;">
-    <div style="font-size: 1.6rem;">&#9881;</div>
-    <div style="font-size: 1rem; font-weight: 800; color: {C['primary']}; letter-spacing: 1px;">GOMECANO</div>
-    <div style="font-size: 0.65rem; color: {C['text_secondary']}; letter-spacing: 2px; text-transform: uppercase;">Matching Engine</div>
-</div>
-""", unsafe_allow_html=True)
-
-st.sidebar.markdown("---")
-st.sidebar.markdown("##### Configuration Mission")
-
-besoin_defaut = load_besoin()
-
-id_mission = st.sidebar.text_input("ID Mission", value=besoin_defaut.get("id_mission", "B2B-001"))
-
-ville_cible = st.sidebar.selectbox(
-    "Ville cible",
-    ["Marseille", "Lyon", "Toulouse", "Aix-En-Provence", "Aubagne", "Vitrolles", "Toulon", "Nice", "Paris", "Bordeaux"],
-    index=0
-)
-
-competence_requise = st.sidebar.selectbox(
-    "Competence requise",
-    ["electrique", "moteur", "freinage", "pneus", "climatisation", "carrosserie", "vul"],
-    index=0
-)
-
-experience_min = st.sidebar.slider("Experience minimum (annees)", 0, 20, besoin_defaut.get("experience_min", 3))
-
-st.sidebar.markdown("---")
-st.sidebar.markdown("##### Poids des criteres")
-
-poids_ville = st.sidebar.slider("Poids Ville", 0, 100, besoin_defaut.get("poids_ville", 50))
-poids_competence = st.sidebar.slider("Poids Competence", 0, 100, besoin_defaut.get("poids_competence", 30))
-poids_experience = st.sidebar.slider("Poids Experience", 0, 100, besoin_defaut.get("poids_experience", 20))
-
-total_poids = poids_ville + poids_competence + poids_experience
-if total_poids != 100:
-    st.sidebar.warning(f"Total des poids : {total_poids}/100")
-else:
-    st.sidebar.success(f"Total des poids : 100/100")
-
-besoin = {
-    "id_mission": id_mission,
-    "ville_cible": ville_cible,
-    "competence_requise": competence_requise,
-    "experience_min": experience_min,
-    "poids_ville": poids_ville,
-    "poids_competence": poids_competence,
-    "poids_experience": poids_experience
-}
 
 
 # =============================================================================
@@ -455,7 +493,7 @@ fig.update_layout(
     yaxis_title="",
     xaxis=dict(
         range=[0, 110],
-        gridcolor="#E5E7EB",
+        gridcolor=C["chart_grid"],
         tickfont=dict(color=C["text_secondary"], size=11, family="Inter, sans-serif"),
         title_font=dict(color=C["text_secondary"], size=12, family="Inter, sans-serif"),
     ),
@@ -464,9 +502,10 @@ fig.update_layout(
     ),
     height=max(400, len(results) * 38),
     margin=dict(l=10, r=50, t=35, b=45),
-    plot_bgcolor="#FFFFFF",
-    paper_bgcolor="#FFFFFF",
-    hoverlabel=dict(bgcolor="#fff", font_size=13, font_family="Inter, sans-serif", bordercolor=C["border"]),
+    plot_bgcolor=C["chart_bg"],
+    paper_bgcolor=C["chart_bg"],
+    hoverlabel=dict(bgcolor=C["hover_bg"], font_size=13, font_family="Inter, sans-serif",
+                    font_color=C["text"], bordercolor=C["border"]),
 )
 
 st.markdown('<div class="chart-wrap">', unsafe_allow_html=True)

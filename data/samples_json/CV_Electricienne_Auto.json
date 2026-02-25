@@ -2,10 +2,10 @@
     "nom": "Lucie Fontaine",
     "ville": "Marseille",
     "competences": [
-        "electrique",
-        "moteur"
+        "moteur",
+        "electrique"
     ],
     "experience_annees": 3,
-    "texte_source": "lucie fontaine electricienne automobile marseille | 06 34 56 78 90 | lucie.fontaine@elecauto.fr profil professionnel electricienne automobile avec 3 ans d'experience. competences en diagnostic electrique, multiplexage et reparation moteur. formation en electronique embarquee automobile.",
+    "texte_source": "lucie fontaine électricienne automobile marseille | 06 34 56 78 90 | lucie.fontaine@elecauto.fr profil professionnel électricienne automobile avec 3 ans d'expérience. compétences en diagnostic électrique, multiplexage et réparation moteur. formation en électronique embarquée automobile. experience : 3 ans d'expérience competences techniques - diagnostic électrique et valise de diagnostic - électronique embarquée et multiplexage - réparation moteur : distribution, courroie - remplacement alternat",
     "fichier_source": "CV_Electricienne_Auto.pdf"
 }

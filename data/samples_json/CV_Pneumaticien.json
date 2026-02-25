@@ -2,11 +2,11 @@
     "nom": "Hugo Blanchard",
     "ville": "Lyon",
     "competences": [
-        "pneus",
         "freinage",
+        "pneus",
         "carrosserie"
     ],
     "experience_annees": 3,
-    "texte_source": "hugo blanchard pneumaticien lyon | 06 23 56 89 01 | hugo.blanchard@pneuservice.fr profil professionnel pneumaticien avec 3 ans d'experience. specialise en montage, equilibrage et geometrie. competences complementaires en freinage et petite carrosserie. experience en centre de pneumatiques.",
+    "texte_source": "hugo blanchard pneumaticien lyon | 06 23 56 89 01 | hugo.blanchard@pneuservice.fr profil professionnel pneumaticien avec 3 ans d'expérience. spécialisé en montage, équilibrage et géométrie. compétences complémentaires en freinage et petite carrosserie. expérience en centre de pneumatiques. experience : 3 ans d'expérience competences techniques - pneumatiques : montage pneu, équilibrage roues, parallélisme - géométrie des trains roulants - systèmes de freinage : remplacement disques et plaquettes",
     "fichier_source": "CV_Pneumaticien.pdf"
 }

@@ -3,10 +3,10 @@
     "ville": "Bordeaux",
     "competences": [
         "moteur",
-        "vul",
-        "freinage"
+        "freinage",
+        "vul"
     ],
     "experience_annees": 9,
-    "texte_source": "jean-paul garnier mecanicien vul bordeaux | 06 01 23 45 67 | jeanpaul.garnier@vulservice.fr profil professionnel mecanicien specialise vehicules utilitaires legers avec 9 ans d'experience. competences en mecanique moteur, freinage et entretien flottes vul. experience en contrats de maintenance entreprise.",
+    "texte_source": "jean-paul garnier mécanicien spécialiste vul bordeaux | 06 01 23 45 67 | jeanpaul.garnier@vulservice.fr profil professionnel mécanicien spécialisé véhicules utilitaires légers avec 9 ans d'expérience. compétences en mécanique moteur, freinage et entretien flottes vul. expérience en contrats de maintenance entreprise. experience : 9 ans d'expérience competences techniques - véhicule utilitaire léger (vul) : maintenance flotte et contrats entreprise - mécanique moteur : distribution, courroie, emb",
     "fichier_source": "CV_Mecanicien_VUL.pdf"
 }
